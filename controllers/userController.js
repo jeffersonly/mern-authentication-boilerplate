@@ -175,7 +175,37 @@ const userController = {
         } catch(err) {
             return res.status(500).json({ msg: err.message });
         }
-    }
+    },
+    updateUser: async (req, res) => {
+        try {
+           const { name, avatar } = req.body;
+           await Users.findOneAndUpdate({ _id: req.user.id }, {
+               name, avatar
+           });
+           res.json({ msg: "Successfully Updated" });
+        } catch(err) {
+            return res.status(500).json({ msg: err.message });
+        }
+    },
+    updateUsersRole: async (req, res) => {
+        try {
+            const { role } = req.body;
+            await Users.findOneAndUpdate({ _id: req.params.id }, {
+                role
+            });
+            res.json({ msg: "Successfully Updated" });
+        } catch(err) {
+            return res.status(500).json({ msg: err.message });
+        }
+    },
+    deleteUser: async (req, res) => {
+        try {
+            await Users.findByIdAndDelete(req.params.id);
+            res.json({ msg: "Successfully Deleted User" });
+        } catch(err) {
+            return res.status(500).json({ msg: err.message });
+        }
+    },
 };
 
 // validate email

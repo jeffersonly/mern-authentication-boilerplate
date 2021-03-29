@@ -50,6 +50,9 @@
     - Click exchange authorization code for tokens and take the refresh token
 - SENDER_EMAIL_ADDRESS
     - Set the email address you want to use to send out emails 
+- CLOUD_NAME, CLOUD_API_KEY, CLOUD_API_SECRET
+    - To get these, you need to create a cloudinary account (we use this to store avatar/profile images)
+    - Once logged into cloudinary, go to account details which can be found on [this page](https://cloudinary.com/console/)
 
 
 ## mongodb
