@@ -41,3 +41,8 @@
     letter-spacing: 1.5;
     margin-right: 10px;
 }
+
+.login_page a {
+    color: black;
+    font-weight: bold;
+}
