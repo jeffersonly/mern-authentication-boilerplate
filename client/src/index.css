@@ -43,3 +43,6 @@ button {
 
 /** Auth **/
 @import url("./components/body/auth/auth.css");
+
+/** Profile **/
+@import url("./components/body/profile/profile.css");

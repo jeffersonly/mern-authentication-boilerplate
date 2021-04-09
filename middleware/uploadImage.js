@@ -6,7 +6,6 @@ module.exports = async function(req, res, next) {
             return res.status(400).json({ msg: "No files were uploaded" });
         }
         const file = req.files.file;
-        console.log(file);
         if(file.size > 1024 * 1024) { // 1mb
             removeTmp(file.tempFilePath);
             return res.status(400).json({ msg: "File size too large" });
