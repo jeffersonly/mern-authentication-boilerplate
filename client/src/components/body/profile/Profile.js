@@ -52,11 +52,12 @@ function Profile() {
 
             let formData = new FormData();
             formData.append('file', file);
-
+            console.log(formData);
             setLoading(true);
             const res = await axios.post("/api/upload_avatar", formData, {
                 headers: { "content-type": "multipart/form-data", Authorization: token }
             });
+            
             setLoading(false);
             setAvatar(res.data.url);
         } catch(err) {
@@ -89,7 +90,7 @@ function Profile() {
         }
 
         try {
-            axios.patch("/user/resetpassword", {
+            axios.post("/user/resetpassword", {
                 password
             }, {
                 headers: { Authorization: token }
