@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { isLength, isMatch } from "../../utils/validation/Validation";
 import { showErrMsg, showSuccessMsg } from "../../utils/notification/Notification";
+import { fetchAllUsers, dispatchGetAllUsers } from "../../../redux/actions/usersAction";
 
 const initialState = {
     name: "",
@@ -16,6 +17,7 @@ const initialState = {
 function Profile() {
     const auth = useSelector(state => state.auth);
     const token = useSelector(state => state.token);
+    const users = useSelector(state => state.users);
 
     const { user, isAdmin } = auth;
     const [data, setData] = useState(initialState);
@@ -27,10 +29,18 @@ function Profile() {
 
     const dispatch = useDispatch();
 
+    useEffect(() => {
+        if(isAdmin) {
+            fetchAllUsers(token).then(res => {
+                dispatch(dispatchGetAllUsers(res));
+            });
+        }
+    }, [token, isAdmin, dispatch, callback]);
+
     const handleChange = e => {
         const { name, value } = e.target;
         setData({ ...data, [name]: value, err: "", success: "" });
-    }
+    };
 
     const changeAvatar = async (e) => {
         e.preventDefault();
@@ -63,7 +73,7 @@ function Profile() {
         } catch(err) {
             setData({ ...data, err: err.response.data.msg, success: "" });
         }
-    }
+    };
 
     const updateInfo = () => {
         try {
@@ -78,7 +88,7 @@ function Profile() {
         } catch(err) {
             setData({ ...data, err: err.response.data.msg, success: "" });
         }
-    }
+    };
 
     const updatePassword = () => {
         if(isLength(password)) {
@@ -100,7 +110,7 @@ function Profile() {
         } catch(err) {
             setData({ ...data, err: err.response.data.msg, success: "" });
         }
-    }
+    };
 
     const handleUpdate = () => {
         if(name || avatar) {
@@ -110,7 +120,24 @@ function Profile() {
         if(password) {
             updatePassword();
         }
-    }
+    };
+
+    const handleDelete = async (id) => {
+        try {
+            if(user._id !== id) {
+                if(window.confirm("Are you sure you want to delete this account?")) {
+                    setLoading(true);
+                    await axios.delete(`/user/delete/${id}`, {
+                        headers: { Authorization: token }
+                    });
+                    setLoading(false);
+                    setCallback(!callback);
+                }
+            }
+        } catch(err) {
+            setData({ ...data, err: err.response.data.msg, success: "" });
+        }
+    };
 
     return (
         <>
@@ -201,13 +228,33 @@ function Profile() {
                                 </tr>
                             </thead>
 
-                            {/* <tbody>
-                                <td>ID</td>
-                                <td>Name</td>
-                                <td>Email</td>
-                                <td>Admin</td>
-                                <td>Action</td>
-                            </tbody> */}
+                            <tbody>
+                                {
+                                    users.map(user => (
+                                        <tr key={user._id}>
+                                            <td>{user._id}</td>
+                                            <td>{user.name}</td>
+                                            <td>{user.email}</td>
+                                            <td>
+                                                {
+                                                    user.role === 1 ?
+                                                    <i className="fas fa-check" title="Admin"></i>
+                                                    :
+                                                    <i className="fas fa-times" title="User"></i>
+                                                }
+                                            </td>
+                                            <td>
+                                                <Link to={`/edit_user/${user._id}`}>
+                                                    <i className="fas fa-edit" title="Edit"></i>
+                                                </Link>
+
+                                                <i className="fas fa-trash-alt" title="Remove" onClick={handleDelete}></i>
+                                            </td>
+                                        </tr>
+                                    ))
+                                }
+                                
+                            </tbody>
                         </table>
                     </div>
                 </div>
