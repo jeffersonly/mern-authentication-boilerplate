@@ -19,6 +19,7 @@
 # Client Side
 ## Dependencies
 - axios:
+- react-google-login:
 - react-redux:
 - react-router-dom:
 - redux:
