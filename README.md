@@ -1,28 +1,28 @@
 # Server Side
 ## Dependencies
-- bcrypt:
-- cloudinary:
-- cookie-parser:
-- cors:
-- dotenv:
-- express:
-- express-fileupload:
-- googleapis:
-- jsonwebtoken:
-- nodemailer:
-- node-fetch:
-- mongoose:
+- bcrypt: Used for specialized hashing, utilized to salt passwords and hash them for security
+- cloudinary: Used for image storing 
+- cookie-parser: Middleware which parses cookies attached to the client request object
+- cors: Cross Origin Resource Sharing, HTTP header based mechanism that allows servers to indicate any other origins (domain, scheme, or port) than its own from which a brwoser should permit loading of resources, allows you to make requests from one website to another website in the browser
+- dotenv: Loads environment variables from a .env file into process.env
+- express: Framework that helps with managing everything ranging from routes to handling requests and views, helps organize web app into an MVC architecture on the server side
+- express-fileupload: Access uploaded file from req.files in express server request
+- googleapis: API service provided by Google, used to leverage google services such as sending emails
+- jsonwebtoken: JWT, method for allowing authentication without storing information about the user on the system itself
+- nodemailer: Used for email sending
+- node-fetch: Used for fetching resources
+- mongoose: Object Data Modeling library for MongoDB and Node.js; manages relationships between data, provides schema validation, and is used to translate between objects in code and the representation of those objects in MongoDB
 ## Dev Dependencies
-- nodemon:
+- nodemon: Tool for developing with node.js applications to automically restart the node application when file changes in the directory are detected 
 
 
 # Client Side
 ## Dependencies
-- axios:
-- react-google-login:
-- react-redux:
-- react-router-dom:
-- redux:
+- axios: Used to make http requests to external resources, retrieve data from external APIs
+- react-google-login: Used for oAuth login with google
+- react-redux:  Used for application state management, maintains state of the entire app
+- react-router-dom: Used to handle routing for different pages
+- redux: Predictable state container, mainly used as a state management tool
 ## Dev Dependencies
 
 
@@ -30,6 +30,7 @@
 ## .env 
 - Create a .env file in the root directory, this will contain application secrets and info, the following items are needed in the .env file
 - MONGODB_URL
+    - Go to the official [mongodb website](https://www.mongodb.com/) and follow the steps in [mongodb](#mongodb)
     - Get the mongodb url by going to clusters in mongodb, then choose to connect to application, a link will be generated that looks something like this:
         - ```mongodb+srv://<username>:<password>@cluster0.is8bq.mongodb.net/<dbname>?retryWrites=true&w=majority``` 
         - replace < password > with the password you had set for that user
@@ -60,3 +61,11 @@
 - Create an account with mongodb/sign in using google
 - Create a mongodb cluster
 - allow network access from all ip addresses 
+
+# Running the Application Locally
+1. After setting up the .env file with the proper fields, as shown [above](#.env) go into a folder directory and clone the repo
+    - This can be done by running ```git clone https://github.com/jeffersonly/mern-authentication-boilerplate.git``` through the command line within the folder in which you want to project to be placed
+2. Run ```npm install``` within the base directory (after cloning, change directories into the MERN-AUTHENTICATION-BOILERPLATE, or whatever name you decide to change the project name to)
+3. Run ```npm install``` within the client directory (change directories into the client folder and install the dependencies)
+4. In the base directory you can run ```npm run dev``` which will the backend of the application
+5. Change into the client directory and run ```npm start```, this will run the frontend of the application
