@@ -18,5 +18,6 @@ router.delete('/delete/:id', auth, authAdmin, userController.deleteUser);
 
 // oauth
 router.post('/google_login', userController.googleLogin);
+router.post('/facebook_login', userController.facebookLogin);
 
 module.exports = router;

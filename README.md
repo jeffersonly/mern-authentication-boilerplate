@@ -19,6 +19,7 @@
 # Client Side
 ## Dependencies
 - axios: Used to make http requests to external resources, retrieve data from external APIs
+- react-facebook-login: Used for oAuth login with facebook
 - react-google-login: Used for oAuth login with google
 - react-redux:  Used for application state management, maintains state of the entire app
 - react-router-dom: Used to handle routing for different pages
