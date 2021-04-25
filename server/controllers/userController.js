@@ -1,7 +1,6 @@
 const Users = require('../models/userModel');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const SendmailTransport = require('nodemailer/lib/sendmail-transport');
 const sendMail = require('./sendMailController');
 
 const { google } = require('googleapis');
@@ -242,7 +241,7 @@ const userController = {
                     res.json({ msg: "Logged In"});
                 } else {
                     const newUser = new Users({
-                        name, email, password: hashedPassword, avatar: picture
+                        name, email, password: hashedPassword, avatar: picture, oauth: true
                     });
 
                     await newUser.save();
@@ -296,7 +295,7 @@ const userController = {
                 res.json({ msg: "Logged In"});
             } else {
                 const newUser = new Users({
-                    name, email, password: hashedPassword, avatar: picture.data.url
+                    name, email, password: hashedPassword, avatar: picture.data.url, oauth: true
                 });
 
                 await newUser.save();

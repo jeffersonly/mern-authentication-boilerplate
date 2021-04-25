@@ -3,6 +3,7 @@ const userController = require('../controllers/userController');
 const auth = require('../middleware/auth');
 const authAdmin = require('../middleware/authAdmin');
 
+// routes to handle all user authentication related functionalities
 router.post('/register', userController.register);
 router.post('/activation', userController.activateEmail);
 router.post('/login', userController.login);

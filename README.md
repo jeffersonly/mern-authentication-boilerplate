@@ -23,6 +23,7 @@
 - react-google-login: Used for oAuth login with google
 - react-redux:  Used for application state management, maintains state of the entire app
 - react-router-dom: Used to handle routing for different pages
+- react-toastify: Used for success and error notifications
 - redux: Predictable state container, mainly used as a state management tool
 ## Dev Dependencies
 
@@ -56,6 +57,9 @@
 - CLOUD_NAME, CLOUD_API_KEY, CLOUD_API_SECRET
     - To get these, you need to create a cloudinary account (we use this to store avatar/profile images)
     - Once logged into cloudinary, go to account details which can be found on [this page](https://cloudinary.com/console/)
+- GOOGLE_SECRET, FACEBOOK_SECRET
+    - Token secrets used for generating the JWT for auth. It's recommended to use a seperate randomized password for each of these secrets.
+    - This site is recommended: [Secure Password Generator](https://passwordsgenerator.net/)
 
 
 ## mongodb

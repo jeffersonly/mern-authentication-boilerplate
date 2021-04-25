@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+// mongoose user schema, states fields users have
 const userSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -22,6 +23,10 @@ const userSchema = new mongoose.Schema({
     avatar: {
         type: String,
         default: ""
+    },
+    oauth: {
+        type: Boolean,
+        default: false
     }
 }, {
     timestamps: true

@@ -1,5 +1,6 @@
 const Users = require('../models/userModel');
 
+// admin authentication middleware
 const authAdmin = async (req, res, next) => {
     try {
         const user = await Users.findOne({ _id: req.user.id });

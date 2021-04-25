@@ -7,7 +7,6 @@ import ForgotPassword from "./auth/ForgotPassword";
 import ResetPassword from "./auth/ResetPassword";
 import Profile from "./profile/Profile";
 import EditUser from "./profile/EditUser";
-
 import NotFound from "../utils/not_found/NotFound";
 import { useSelector } from "react-redux";
 
@@ -26,6 +25,8 @@ function Body() {
 
                 <Route path="/profile" component={isLogged ? Profile : NotFound} exact />
                 <Route path="/edit_user/:id" component={isAdmin ? EditUser : NotFound} exact />
+
+                <Route component={NotFound} />
             </Switch>
         </section>
     );

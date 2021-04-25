@@ -1,12 +1,14 @@
 const cloudinary = require('cloudinary');
 const fs = require('fs');
 
+// configure cloudinary resources
 cloudinary.config({
     cloud_name: process.env.CLOUD_NAME,
     api_key: process.env.CLOUD_API_KEY,
     api_secret: process.env.CLOUD_API_SECRET
 });
 
+// upload image to cloudinary
 const uploadController = {
     uploadAvatar: (req, res) => {
         try {

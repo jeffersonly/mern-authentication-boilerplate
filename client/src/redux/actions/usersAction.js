@@ -1,6 +1,7 @@
 import ACTIONS from "./index";
 import axios from "axios";
 
+// get all users information
 export const fetchAllUsers = async (token) => {
     const res = await axios.get("/user/all_info", {
         headers: { Authorization: token }

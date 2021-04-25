@@ -5,12 +5,15 @@ import { dispatchLogin, fetchUser, dispatchGetUser } from "./redux/actions/authA
 import Header from "./components/header/Header";
 import Body from "./components/body/Body";
 import axios from "axios";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
-    const dispatch = useDispatch();
-    const token = useSelector(state => state.token);
+    const dispatch = useDispatch(); // returns a reference to the dispatch function from the Redux store, used to dispatch actions as needed
+    const token = useSelector(state => state.token); // extract data from redux store state
     const auth = useSelector(state => state.auth);
 
+    // get access token, check to see if user is already logged in
     useEffect(() => {
         const firstLogin = localStorage.getItem("firstLogin");
         if(firstLogin) {
@@ -22,6 +25,7 @@ function App() {
         }
     }, [auth.isLogged, dispatch]);
 
+    // get user data 
     useEffect(() => {
         if(token) {
             const getUser = () => {
@@ -38,6 +42,7 @@ function App() {
         <Router>
             <div className="App">
                 <Header />
+                <ToastContainer />
                 <Body />
             </div>
         </Router>
