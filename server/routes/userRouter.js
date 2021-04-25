@@ -15,7 +15,7 @@ router.get('/all_info', auth, authAdmin, userController.getAllUsersInfo);
 router.get('/logout', userController.logout);
 router.patch('/update', auth, userController.updateUser);
 router.patch('/update_role/:id', auth, authAdmin, userController.updateUsersRole);
-router.delete('/delete/:id', auth, authAdmin, userController.deleteUser);
+router.delete('/delete/:id', auth, userController.deleteUser);
 
 // oauth
 router.post('/google_login', userController.googleLogin);

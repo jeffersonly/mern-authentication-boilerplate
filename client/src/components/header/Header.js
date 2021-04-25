@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import defaultImage from "../utils/default-user-image.png";
 
 function Header() {
     const auth = useSelector(state => state.auth);
@@ -22,7 +23,7 @@ function Header() {
         return (
             <li className="drop-nav">
                 <Link to="#">
-                    <img src={user.avatar} className="avatar" /> {user.name} <i className="fas fa-angle-down"></i>
+                    <img src={user.avatar === "" ? defaultImage : user.avatar} className="avatar" prop="user avatar"/> {user.name} <i className="fas fa-angle-down"></i>
                 </Link>
 
                 <ul className="dropdown">

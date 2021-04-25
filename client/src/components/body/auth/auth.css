@@ -28,12 +28,13 @@
     align-items: flex-start;
 }
 
-.login_page .row a {
-    color: crimson;
+.login_page .row .right-align {
+    display: inline-block;
+    width: 100%;
 }
 
 .login_page .row button {
-    width: 150px;
+    width: 100%;
     padding: 10px 0;
     color: white;
     background: black;
@@ -45,6 +46,25 @@
 .login_page a {
     color: black;
     font-weight: bold;
+}
+
+.login_page .hr {
+    font-size: 16px;
+    text-align: center;
+    padding: 20px;
+    font-weight: bold;
+    opacity: 0.3;
+    font-style: oblique;
+}
+
+.social button {
+    width: 100%;
+    margin: 10px 0;
+    height: 60px;
+    font-size: 14px;
+    font-weight: 200;
+    text-transform: capitalize;
+    letter-spacing: 1.5px;
 }
 
 /* forgot password page */
@@ -81,4 +101,12 @@
     letter-spacing: 1.3px;
     border-radius: 3px;
     margin-top: 15px;
+}
+
+/* 404 page */
+.text-404 {
+    font-size: 16;
+    color: #8c8c8c;
+    font-weight: bold;
+    text-align: center;
 }

@@ -106,10 +106,16 @@ function Login() {
 
                 <div className="row">
                     <button type="submit">Login</button>
-                    <Link to="/forgot_password">Forgot your password?</Link>
                 </div>
             </form>
 
+            <div className="row">
+                <div className="right-align">
+                    <Link to="/forgot_password">Forgot your password?</Link>
+                    <p>Don't have an account yet? <Link to="/register">Register</Link></p>
+                </div>
+            </div>
+            
             <div className="hr">Or Login With</div>
 
             <div className="social">
@@ -128,8 +134,6 @@ function Login() {
                     callback={responseFacebook} 
                 />
             </div>
-
-            <p>Don't have an account yet? <Link to="/register">Register</Link></p>
         </div>
     );
 };

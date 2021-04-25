@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { isLength, isMatch } from "../../utils/validation/Validation";
 import { showErrMsg, showSuccessMsg } from "../../utils/notification/Notification";
 import { fetchAllUsers, dispatchGetAllUsers } from "../../../redux/actions/usersAction";
+import defaultUserImage from "../../utils/default-user-image.png";
 
 const initialState = {
     name: "",
@@ -29,6 +30,7 @@ function Profile() {
 
     const dispatch = useDispatch();
 
+    // get all users if user is admin
     useEffect(() => {
         if(isAdmin) {
             fetchAllUsers(token).then(res => {
@@ -37,11 +39,13 @@ function Profile() {
         }
     }, [token, isAdmin, dispatch, callback]);
 
+    // handle input field change
     const handleChange = e => {
         const { name, value } = e.target;
         setData({ ...data, [name]: value, err: "", success: "" });
     };
 
+    // change user's avatar image
     const changeAvatar = async (e) => {
         e.preventDefault();
 
@@ -62,7 +66,6 @@ function Profile() {
 
             let formData = new FormData();
             formData.append('file', file);
-            console.log(formData);
             setLoading(true);
             const res = await axios.post("/api/upload_avatar", formData, {
                 headers: { "content-type": "multipart/form-data", Authorization: token }
@@ -75,6 +78,7 @@ function Profile() {
         }
     };
 
+    // update user's information
     const updateInfo = () => {
         try {
             axios.patch("/user/update", {
@@ -90,6 +94,7 @@ function Profile() {
         }
     };
 
+    // update user's password
     const updatePassword = () => {
         if(isLength(password)) {
             return setData({ ...data, err: "Password must be at least 6 characters", success: "" });
@@ -112,6 +117,7 @@ function Profile() {
         }
     };
 
+    // handle user information update
     const handleUpdate = () => {
         if(name || avatar) {
             updateInfo();
@@ -122,16 +128,26 @@ function Profile() {
         }
     };
 
+    // handle user account deletion
     const handleDelete = async (id) => {
         try {
-            if(user._id !== id) {
-                if(window.confirm("Are you sure you want to delete this account?")) {
-                    setLoading(true);
-                    await axios.delete(`/user/delete/${id}`, {
-                        headers: { Authorization: token }
-                    });
-                    setLoading(false);
-                    setCallback(!callback);
+            if(window.confirm("Are you sure you want to delete this account?")) {
+                setLoading(true);
+                await axios.delete(`/user/delete/${id}`, {
+                    headers: { Authorization: token }
+                });
+                setLoading(false);
+                setCallback(!callback);
+
+                // if the user deletes their own account, log them out and clear storage
+                if(user._id === id) {
+                    try {
+                        await axios.get('/user/logout');
+                        localStorage.removeItem('firstLogin');
+                        window.localtion.href = "/";
+                    } catch(err) {
+                        window.location.href = "/";
+                    }
                 }
             }
         } catch(err) {
@@ -151,7 +167,7 @@ function Profile() {
                     <h2>{isAdmin ? "Admin Profile" : "User Profile"}</h2>
 
                     <div className="avatar">
-                        <img src={avatar ?  avatar : user.avatar} alt="" />
+                        <img src={avatar ? avatar : (user.avatar === "" ? defaultUserImage : user.avatar)} alt="" />
                         <span>
                             <i className="fas fa-camera"></i>
                             <p>Change Avatar</p>
@@ -180,84 +196,98 @@ function Profile() {
                             placeholder="Your Email Address"
                             defaultValue={user.email}
                             onChange={handleChange}
+                            disabled={true}
                         />
                     </div>
 
-                    <div className="form-group">
-                        <label htmlFor="name">New Password</label>
-                        <input 
-                            type="password"
-                            name="password"
-                            id="password"
-                            placeholder="New Password"
-                            value={password}
-                            onChange={handleChange}
-                        />
-                    </div>
+                    {
+                        user.oauth ? null : 
+                        (
+                            <>
+                                <div className="form-group">
+                                    <label htmlFor="name">New Password</label>
+                                    <input 
+                                        type="password"
+                                        name="password"
+                                        id="password"
+                                        placeholder="New Password"
+                                        value={password}
+                                        onChange={handleChange}
+                                    />
+                                </div>
 
-                    <div className="form-group">
-                        <label htmlFor="name">Confirm New Password</label>
-                        <input 
-                            type="password"
-                            name="confirm_password"
-                            id="confirm_password"
-                            placeholder="Confirm New Password"
-                            value={confirm_password}
-                            onChange={handleChange}
-                        />
-                    </div>
-
-                    <p style={{ opacity: "0.7", fontSize: "12px" }}>Changing/updating your password will result in oAuth login not working (you'll have to manually enter your email/fb email and password</p>
+                                <div className="form-group">
+                                    <label htmlFor="name">Confirm New Password</label>
+                                    <input 
+                                        type="password"
+                                        name="confirm_password"
+                                        id="confirm_password"
+                                        placeholder="Confirm New Password"
+                                        value={confirm_password}
+                                        onChange={handleChange}
+                                    />
+                                </div>
+                            </>
+                        )
+                    }
 
                     <button disabled={loading} onClick={handleUpdate}>Update Profile</button>
-
+                    <br />
+                    <button disabled={loading} onClick={() => handleDelete(user._id)}>Delete Account</button>
                 </div>
 
-                <div className="col-right">
-                    <h2>{isAdmin ? "Users" : "MyOrders"}</h2>
+                {
+                    user.role === 0 ? null : 
+                    (
+                        <>
+                            <div className="col-right">
+                                <h2>Users</h2>
 
-                    <div style={{ overflowX: "auto" }}>
-                        <table className="customers">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Admin</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
+                                <div style={{ overflowX: "auto" }}>
+                                    <table className="users">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Name</th>
+                                                <th>Email</th>
+                                                <th>Admin</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
 
-                            <tbody>
-                                {
-                                    users.map(user => (
-                                        <tr key={user._id}>
-                                            <td>{user._id}</td>
-                                            <td>{user.name}</td>
-                                            <td>{user.email}</td>
-                                            <td>
-                                                {
-                                                    user.role === 1 ?
-                                                    <i className="fas fa-check" title="Admin"></i>
-                                                    :
-                                                    <i className="fas fa-times" title="User"></i>
-                                                }
-                                            </td>
-                                            <td>
-                                                <Link to={`/edit_user/${user._id}`}>
-                                                    <i className="fas fa-edit" title="Edit"></i>
-                                                </Link>
+                                        <tbody>
+                                            {
+                                                users.map(user => (
+                                                    <tr key={user._id}>
+                                                        <td>{user._id}</td>
+                                                        <td>{user.name}</td>
+                                                        <td>{user.email}</td>
+                                                        <td>
+                                                            {
+                                                                user.role === 1 ?
+                                                                <i className="fas fa-check" title="Admin"></i>
+                                                                :
+                                                                <i className="fas fa-times" title="User"></i>
+                                                            }
+                                                        </td>
+                                                        <td>
+                                                            <Link to={`/edit_user/${user._id}`}>
+                                                                <i className="fas fa-edit" title="Edit"></i>
+                                                            </Link>
 
-                                                <i className="fas fa-trash-alt" title="Remove" onClick={handleDelete}></i>
-                                            </td>
-                                        </tr>
-                                    ))
-                                }
-                                
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                                                            <i className="fas fa-trash-alt" title="Remove" onClick={() => handleDelete(user._id)}></i>
+                                                        </td>
+                                                    </tr>
+                                                ))
+                                            }
+                                            
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </>
+                    )
+                }
             </div>
         </>
     );
