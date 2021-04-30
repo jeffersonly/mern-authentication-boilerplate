@@ -1,62 +1,37 @@
-header {
-    width: 100%;
-    min-height: 100px;
-    background: black;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    padding: 0 30px;
+#header-avatarImg {
+    width: 60px;
+    margin-right: 2.5px;
 }
 
-header h1 {
-    color: white;
+.header-menu-item {
+    float: right;
 }
 
-header a {
-    color: white;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
+.header-dropdown, .header-dropdown:hover {
+    color: black;
 }
 
-header ul li {
-    display: inline-block;
-    padding: 10px 20px;
-    opacity: 0.7;
+#header-title {
+    font-size: 18px;
+    font-weight: 400;
 }
 
-header ul li:hover {
-    opacity: 1;
+#vertical-nav-drawer-button {
+    text-align: center;
+    font-size: 20px;
+    height: 100%;
+    float: right;
+    margin: 20px;
 }
 
-header ul li img {
-    width: 30px;
-    height: 30px;
-    transform: translateY(10px);
-    border-radius: 50%;
+.vertical-dropdown-title {
+    font-size: 24px;
+    color: black;
 }
 
-/** Dropdown **/
-.drop-nav {
-    position: relative;
-    padding: 10px 0;
-}
-
-.drop-nav a {
-    text-transform: capitalize;
-    overflow: hidden;
-}
-
-.drop-nav .dropdown {
-    position: absolute;
-    background: black;
-    width: 100%;
-    width: calc(100% + 30px);
-    top: 50px;
-    display: none;
-}
-
-.drop-nav:hover .dropdown {
+.vertical-dropdown-link {
+    font-size: 20px;
     display: block;
+    color: black;
+    padding: 15px;
 }
-

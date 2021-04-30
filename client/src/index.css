@@ -46,3 +46,6 @@ button {
 
 /** Profile **/
 @import url("./components/body/profile/profile.css");
+
+/** antd **/
+@import '~antd/dist/antd.css';

@@ -17,7 +17,7 @@ function NotFoundPage() {
             <Lottie 
                 options={defaultOptions}
                 height={"100%"}
-                width={"90%"}
+                width={"80%"}
             />
             <p className="text-404">Sorry, the page you were looking for does not exist or another error has occured.</p>
             <br/>

@@ -18,6 +18,7 @@
 
 # Client Side
 ## Dependencies
+- antd: React UI library for components
 - axios: Used to make http requests to external resources, retrieve data from external APIs
 - react-facebook-login: Used for oAuth login with facebook
 - react-google-login: Used for oAuth login with google

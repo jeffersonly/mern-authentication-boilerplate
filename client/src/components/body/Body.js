@@ -10,6 +10,8 @@ import EditUser from "./profile/EditUser";
 import NotFoundPage from "./auth/NotFoundPage";
 import { useSelector } from "react-redux";
 
+import DrawerForm from "./auth/AntdLoginPage";
+
 function Body() {
     const auth = useSelector(state => state.auth);
     const { isLogged, isAdmin } = auth;
@@ -26,6 +28,7 @@ function Body() {
                 <Route path="/profile" component={isLogged ? Profile : NotFoundPage} exact />
                 <Route path="/edit_user/:id" component={isAdmin ? EditUser : NotFoundPage} exact />
 
+                <Route path="/another" component={DrawerForm} exact />
                 <Route component={NotFoundPage} />
             </Switch>
         </section>
