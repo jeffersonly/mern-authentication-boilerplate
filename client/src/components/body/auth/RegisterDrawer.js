@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import axios from "axios";
 import { showErrMsg, showSuccessMsg } from "../../utils/notification/Notification";
 import { isEmpty, isEmail, isLength, isMatch } from "../../utils/validation/Validation";
+import { Form, Button, Input } from 'antd';
+import { MailOutlined, EyeInvisibleOutlined, EyeTwoTone, LockOutlined, UserOutlined } from '@ant-design/icons';
+
 
 const initialState = {
     name: "",
@@ -13,7 +15,7 @@ const initialState = {
     success: ""
 };
 
-function Register() {
+function RegisterDrawer() {
     const [user, setUser] = useState(initialState);
     const { name, email, password, confirm_password, err, success } = user;
 
@@ -54,69 +56,90 @@ function Register() {
         }
     }
 
+    const onFinishFailed = e => {
+        console.log("Form failed: ", e);
+    }
+
     return (
-        <div className="login_page">
-            <h2>Register</h2>
+        <>
             {err && showErrMsg(err)}
             {success && showSuccessMsg(success)}
 
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="name">Name</label>
-                    <input 
+            <Form layout="vertical" onFinish={handleSubmit} onFinishFailed={onFinishFailed} hideRequiredMark> 
+                <Form.Item
+                    name="name"
+                    label="Name"
+                    rules={[{ required: true, message: 'Enter Name' }]}
+                >
+                    <Input 
                         type="text" 
+                        prefix={<UserOutlined className="site-form-item-icon" />}
                         placeholder="Enter Name" 
                         id="name" 
                         value={name} 
                         name="name" 
                         onChange={handleChangeInput}
                     />
-                </div>
-
-                <div>
-                    <label htmlFor="email">Email Address</label>
-                    <input 
-                        type="email" 
-                        placeholder="Enter Email Address" 
-                        id="email" 
-                        value={email} 
-                        name="email" 
+                </Form.Item>
+                
+                <Form.Item
+                    name="email"
+                    label="Email"
+                    rules={[{ required: true, message: 'Enter Email' }]}
+                >
+                    <Input 
+                        type="email"
+                        prefix={<MailOutlined className="site-form-item-icon" />}
+                        placeholder="Enter Email" 
+                        id="email"
+                        value={email}
+                        name="email"
                         onChange={handleChangeInput}
                     />
-                </div>
+                </Form.Item>
 
-                <div>
-                    <label htmlFor="password">Password</label>
-                    <input 
-                        type="password" 
+                <Form.Item
+                    name="password"
+                    label="Password"
+                    rules={[{ required: true, message: 'Enter Password' }]}
+                >
+                    <Input.Password
+                        type="password"
+                        prefix={<LockOutlined className="site-form-item-icon" />} 
                         placeholder="Enter Password" 
                         id="password" 
                         value={password} 
                         name="password" 
                         onChange={handleChangeInput}
+                        iconRender={visible => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
                     />
-                </div>
+                </Form.Item>
 
-                <div>
-                    <label htmlFor="confirm_password">Confirm Password</label>
-                    <input 
-                        type="password" 
+                <Form.Item
+                    name="confirm_password"
+                    label="Confirm Password"
+                    rules={[{ required: true, message: 'Confirm Password' }]}
+                >
+                    <Input.Password
+                        type="password"
+                        prefix={<LockOutlined className="site-form-item-icon" />} 
                         placeholder="Confirm Password" 
                         id="confirm_password" 
                         value={confirm_password} 
                         name="confirm_password" 
                         onChange={handleChangeInput}
+                        iconRender={visible => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
                     />
-                </div>
+                </Form.Item>
 
-                <div className="row">
-                    <button type="submit">Register</button>
-                </div>
-            </form>
-
-            <p>Already have an account? <Link to="/login">Login</Link></p>
-        </div>
+                <Form.Item>
+                    <Button type="primary" htmlType="submit" className="login-form-button">
+                        Register
+                    </Button>
+                </Form.Item> 
+            </Form>
+        </>
     );
 };
 
-export default Register;
+export default RegisterDrawer;

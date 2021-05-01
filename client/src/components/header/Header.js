@@ -5,8 +5,8 @@ import axios from "axios";
 import defaultImage from "../utils/default-user-image.png";
 import useWindowDimensions from "../utils/window-dimensions/windowDimensions";
 
-import { Menu, Button, Drawer, Dropdown } from 'antd';
-import { HomeOutlined, UserOutlined, LoginOutlined, LogoutOutlined, MenuOutlined, DownOutlined } from '@ant-design/icons';
+import { Menu, Button, Drawer } from 'antd';
+import { HomeOutlined, UserOutlined, LoginOutlined, LogoutOutlined, MenuOutlined } from '@ant-design/icons';
 
 function Header() {
     const auth = useSelector(state => state.auth);
@@ -37,7 +37,7 @@ function Header() {
     const generateHorizontalNavItems = () => {
         if(isLogged) {
             return (
-                <SubMenu key="submenu" icon={<img id="header-avatarImg" src={user.avatar === "" ? defaultImage : user.avatar} className="avatar" prop="user avatar"/>} 
+                <SubMenu key="submenu" icon={<img id="header-avatarImg" src={user.avatar === "" ? defaultImage : user.avatar} className="avatar" prop="user avatar" alt="user avatar pic" />} 
                     title={
                         <Link to="#" className="header-dropdown">
                             {user.name} <i className="fas fa-angle-down"></i>
@@ -99,10 +99,10 @@ function Header() {
                 <Drawer
                     title={<Link to="/" className="vertical-dropdown-title">MERN Auth BP</Link>}
                     placement={"top"}
-                    closable={false}
                     onClose={closeVerticalDrawer}
                     visible={visibleVerticalNav}
                     key="vertical header"
+                    height={"auto"}
                 >
                     {
                         isLogged ? 

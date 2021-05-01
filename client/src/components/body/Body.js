@@ -1,9 +1,7 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
 import Login from "./auth/LoginPage";
-import Register from "./auth/RegisterPage";
 import AccountActivation from "./auth/AccountActivationPage";
-import ForgotPassword from "./auth/ForgotPasswordPage";
 import ResetPassword from "./auth/ResetPasswordPage";
 import Profile from "./profile/Profile";
 import EditUser from "./profile/EditUser";
@@ -20,8 +18,6 @@ function Body() {
         <section>
             <Switch>
                 <Route path="/login" component={isLogged ? NotFoundPage : Login} exact />
-                <Route path="/register" component={isLogged ? NotFoundPage : Register} exact />
-                <Route path="/forgot_password" component={isLogged ? NotFoundPage : ForgotPassword} exact />
                 <Route path="/user/reset/:token" component={isLogged ? NotFoundPage : ResetPassword} exact />
                 <Route path="/user/activate/:activation_token" component={AccountActivation} exact />
 
