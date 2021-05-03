@@ -4,7 +4,8 @@ import { showErrMsg, showSuccessMsg } from "../../utils/notification/Notificatio
 import { isEmpty, isEmail, isLength, isMatch } from "../../utils/validation/Validation";
 import { Form, Button, Input } from 'antd';
 import { MailOutlined, EyeInvisibleOutlined, EyeTwoTone, LockOutlined, UserOutlined } from '@ant-design/icons';
-
+import Lottie from 'react-lottie';
+import registerLottie from '../../utils/lottie/register.json';
 
 const initialState = {
     name: "",
@@ -25,8 +26,6 @@ function RegisterDrawer() {
     }
 
     const handleSubmit = async e => {
-        e.preventDefault();
-
         if(isEmpty(name) || isEmpty(password)) {
             return setUser({ ...user, err: "Please fill in all fields", success: "" });
         }
@@ -138,6 +137,19 @@ function RegisterDrawer() {
                     </Button>
                 </Form.Item> 
             </Form>
+
+            <Lottie 
+                options={{
+                    loop: true,
+                    autoplay: true,
+                    animationData: registerLottie,
+                    rendererSettings: {
+                        preserveAspectRatio: "xMidYMid slice"
+                    }
+                }}
+                height={"auto"}
+                width={"250px"}
+            />
         </>
     );
 };

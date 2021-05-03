@@ -12,6 +12,11 @@ import { GoogleOutlined, FacebookOutlined, MailOutlined, PlusOutlined, EyeInvisi
 
 import RegisterDrawer from "./RegisterDrawer";
 import ForgotPasswordDrawer from "./ForgotPasswordDrawer";
+import Lottie from 'react-lottie';
+import welcomeLottie from '../../utils/lottie/welcome.json';
+import registerLottie from '../../utils/lottie/register.json';
+import forgotpasswordLottie from '../../utils/lottie/forgotPassword.json';
+import loginLottie from '../../utils/lottie/login.json';
 
 const initialState = {
     email: "",
@@ -89,7 +94,7 @@ function Login() {
     // close login drawer
     const onClose = () => {
         setVisible(false);
-        setUser(initialState);
+        setUser({ ...user, err: "", success: "" });
     };
 
     // open child drawer
@@ -178,6 +183,19 @@ function Login() {
                     </Form.Item> 
                 </Form>
 
+                <Lottie 
+                    options={{
+                        loop: true,
+                        autoplay: true,
+                        animationData: loginLottie,
+                        rendererSettings: {
+                            preserveAspectRatio: "xMidYMid slice"
+                        }
+                    }}
+                    height={"auto"}
+                    width={"250px"}
+                />
+
                 <Drawer
                     title={childDrawerName === "register" ? "Register":"Forgot Password"}
                     width={300}
@@ -190,6 +208,19 @@ function Login() {
 
 
             <div className="social">
+                <Lottie 
+                    options={{
+                        loop: true,
+                        autoplay: true,
+                        animationData: welcomeLottie,
+                        rendererSettings: {
+                            preserveAspectRatio: "xMidYMid slice"
+                        }
+                    }}
+                    height={"100%"}
+                    width={"100%"}
+                />
+
                 <button
                     id="email-auth-button"
                     onClick={showDrawer} 

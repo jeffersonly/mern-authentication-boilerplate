@@ -37,7 +37,12 @@ function Header() {
     const generateHorizontalNavItems = () => {
         if(isLogged) {
             return (
-                <SubMenu key="submenu" icon={<img id="header-avatarImg" src={user.avatar === "" ? defaultImage : user.avatar} className="avatar" prop="user avatar" alt="user avatar pic" />} 
+                <SubMenu key="submenu" icon={
+                    <div className="img-container">
+                        <img id="header-avatarImg" src={user.avatar === "" ? defaultImage : user.avatar} className="avatar" prop="user avatar" alt="user avatar pic" />
+                    </div>
+                    
+                } 
                     title={
                         <Link to="#" className="header-dropdown">
                             {user.name} <i className="fas fa-angle-down"></i>

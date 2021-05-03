@@ -1,3 +1,4 @@
+/* Login page */
 .login_page {
     max-width: 500px;
     margin: auto;
@@ -78,6 +79,7 @@
     padding: 10px;
 }
 
+/* antd drawers */
 .ant-drawer-mask {
     background: rgba(0, 0, 0, 0.65) !important;
 }
@@ -100,6 +102,7 @@
     margin-right: 10px;
 }
 
+/* account activation page */
 #account-activation-page {
     display: block;
     align-content: center;
@@ -118,6 +121,7 @@
     font-weight: bold;
 }
 
+/* reset password page */
 .reset-password-page {
     width: 60%;
     display: block;
@@ -131,6 +135,7 @@
     font-size: 24px;
 }
 
+/* media queries for responsiveness */
 @media screen and (max-width:768px) {
     #account-activation-text {
         padding-top: 30%;

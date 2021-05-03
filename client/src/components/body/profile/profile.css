@@ -12,8 +12,8 @@
 }
 
 .profile_page .col-left .avatar {
-    width: 60%;
-    height: 60%;
+    width: 100%;
+    height: 100%;
     overflow: hidden;
     position: relative;
     margin: 15px auto;
@@ -22,10 +22,11 @@
 }
 
 .profile_page .col-left img {
-    width: 100%;
-    height: 100%;
+    width: 60%;
+    height: 60%;
     display: block;
     object-fit: cover;
+    margin: auto;
 }
 
 .profile_page .col-left .avatar span {
@@ -61,33 +62,39 @@
 .profile_page .col-left h2 {
     text-align: center;
     font-size: 1.7rem;
-    text-transform: uppercase;
     color: #333;
     margin: 10px 0;
 }
 
 .profile_page .col-left label {
     display: block;
-    margin-top: 5px;
+    margin-top: 10px;
 }
 
 .profile_page .col-left input {
     width: 100%;
     height: 40px;
     margin: 5px 0;
-    border: none;
     outline: none;
-    background: #eee;
+    border: solid 1.5px rgba(0, 0, 0, 0.3);
+    border-radius: 2.5px;
     padding: 0 5px;
 }
 
-.profile_page .col-left button {
-    background: #333;
-    color: white;
-    padding: 10px 25px;
-    text-transform: uppercase;
-    letter-spacing: 1.4px;
-    margin: 10px 0;
+.profile_page .col-left input:focus {
+    border-color: #40a9ff;
+    border-right-width: 1px;
+    outline: 0;
+    box-shadow: 0 0 0 2px rgb(24, 144, 255, 0.2);
+}
+
+.profile_page .col-left Button {
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.profile_page .col-left Button:last-child{
+    float: right;
 }
 
 /* Col Right */
@@ -99,75 +106,20 @@
 
 .profile_page .col-right h2 {
     font-size: 1.7rem;
-    text-transform: uppercase;
-    color: #333;
+    color: black;
     margin: 10px 0;
-}
-
-/* Table */
-.users {
-    border-collapse: collapse;
-    width: 100%;
-}
-
-.users td,
-.users th {
-    border: 1px solid #ddd;
-    padding: 8px;
-    min-width: 100px;
-}
-
-.users tr:nth-child(even){
-    background: #f2f2f2;
-}
-
-.users th {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: left;
-    background: #555;
-    color: white;
-}
-
-.users i {
-    cursor: pointer;
-}
-
-.users .fa-check {
-    color: green;
-}
-.users .fa-times {
-    color: red;
-}
-
-.users .fa-edit {
-    background: whitesmoke;
-    padding: 7px;
-    color: #555;
-    font-size: 10px;
-}
-
-.users .fa-trash-alt {
-    background: red;
-    padding: 7px;
-    color: white;
-    font-size: 10px;
-    margin-left: 7px;
+    text-align: center;
 }
 
 /* Edit User */
 .edit_user .go_back {
-    background: white;
+    background: transparent;
     margin: 20px;
     font-size: 1.2rem;
 }
 
 .edit_user .col-left {
     margin-top: 50px;
-}
-
-.edit_user .col-left input {
-    background: #eee;
 }
 
 .edit_user .col-left #isAdmin {
@@ -180,4 +132,32 @@
 .edit_user .col-left #isAdmin + label {
     display: inline-block;
     margin-left: 5px;
+}
+
+/* Profile Admin action buttons */
+.profile.edit-user-icon {
+    font-size: 18px;
+    color: #4267B2;
+    margin-right: 5px;
+    transition: all ease-in-out 0.25s;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.profile.edit-user-icon:hover {
+    background: #4267B2;
+    color: white;
+}
+
+.profile.delete-user-icon {
+    font-size: 18px;
+    color: red;
+    transition: all ease-in-out 0.25s;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.profile.delete-user-icon:hover {
+    background: red;
+    color: white;
 }

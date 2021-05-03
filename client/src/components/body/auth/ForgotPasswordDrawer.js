@@ -4,6 +4,8 @@ import { isEmail } from "../../utils/validation/Validation";
 import { showErrMsg, showSuccessMsg } from "../../utils/notification/Notification";
 import { Form, Button, Input } from 'antd';
 import { MailOutlined } from '@ant-design/icons';
+import Lottie from 'react-lottie';
+import forgotpasswordLottie from '../../utils/lottie/forgotPassword.json';
 
 const initialState = {
     email: "",
@@ -67,6 +69,19 @@ function ForgotPasswordDrawer() {
                     </Button>
                 </Form.Item> 
             </Form>
+
+            <Lottie 
+                options={{
+                    loop: true,
+                    autoplay: true,
+                    animationData: forgotpasswordLottie,
+                    rendererSettings: {
+                        preserveAspectRatio: "xMidYMid slice"
+                    }
+                }}
+                height={"auto"}
+                width={"250px"}
+            />
         </>
     );
 };

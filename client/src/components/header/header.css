@@ -1,6 +1,16 @@
+.img-container {
+    display: inline-block;
+    width: 30px;
+    height: auto;
+    object-fit: contain;
+}
+
 #header-avatarImg {
-    width: 60px;
+    width: 100%;
+    height: auto;
     margin-right: 2.5px;
+    object-fit: contain;
+    padding-right: 5px;
 }
 
 .header-menu-item {
@@ -38,4 +48,8 @@
     display: block;
     color: black;
     padding: 15px;
+}
+
+.header-dropdown {
+    font-size: 18px;
 }
