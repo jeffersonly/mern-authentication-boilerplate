@@ -41,15 +41,16 @@ const sendEmail = (to, url, txt) => {
         to: to,
         subject: "MERN Auth",
         html: `
-            <div style="max-width: 700px; margin:auto; border: 10px solid #ddd; padding: 50px 20px; font-size: 110%;">
-            <h2 style="text-align: center; text-transform: uppercase;color: teal;">Welcome!</h2>
-            <p>Congratulations! You're almost set to start using MERN Auth.
-                Just click the button below to validate your email address.
+            <div style="max-width: 700px; margin:auto; border: 10px solid #4267B2; padding: 50px 20px; font-size: 110%;">
+            <h2 style="text-align: center; color: 4267B2;">Hello!</h2>
+            <p>
+                Thank you for signing up to use the MERN Authentication application.
+                Click the button below to validate your email address and get things going!
             </p>
             
-            <a href=${url} style="background: crimson; text-decoration: none; color: white; padding: 10px 20px; margin: 10px 0; display: inline-block;">${txt}</a>
+            <a href=${url} style="background: #4267B2; text-decoration: none; color: white; padding: 10px 20px; font-weight: bold; margin: 10px 0; display: inline-block;">${txt}</a>
         
-            <p>If the button doesn't work for any reason, you can also click on the link below:</p>
+            <p>If the button isn't working, click the link below:</p>
         
             <div>${url}</div>
             </div>

@@ -28,7 +28,7 @@ function Profile() {
     const [loading, setLoading] = useState(false);
     const [callback, setCallback] = useState(false);
 
-    const { name, email, password, confirm_password, err, success } = data;
+    const { name, password, confirm_password, err, success } = data;
 
     const dispatch = useDispatch();
 
@@ -165,7 +165,7 @@ function Profile() {
             title: 'ID',
             dataIndex: 'id',
             key: 'id',
-            render: text => <a>{text}</a>,
+            render: text => <Link to={`/edit_user/${user._id}`}> {text} </Link>
         },
         {
             title: 'Name',
@@ -193,14 +193,15 @@ function Profile() {
         },
         {
             title: 'Actions',
+            dataIndex: 'action_user_id',
             key: 'action',
-            render: () => (
+            render: (action_user_id) => (
                 <Space size="middle">
-                    <Link to={`/edit_user/${user._id}`}>
+                    <Link to={`/edit_user/${action_user_id}`}>
                         <EditOutlined title="Edit User" className="profile edit-user-icon" />
                     </Link>
 
-                    <DeleteOutlined title="Delete User" onClick={() => handleDelete(user._id)} className="profile delete-user-icon" />
+                    <DeleteOutlined title="Delete User" onClick={() => handleDelete(action_user_id)} className="profile delete-user-icon" />
                 </Space>
             ),
         },
@@ -216,7 +217,8 @@ function Profile() {
                 id: objectItem._id,
                 name: objectItem.name,
                 email: objectItem.email,
-                role: objectItem.role
+                role: objectItem.role,
+                action_user_id: objectItem._id
             };
             dataArray.push(newObject);
         }

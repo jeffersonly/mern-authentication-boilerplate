@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import axios from "axios";
 import { showErrMsg, showSuccessMsg } from "../../utils/notification/Notification";
 import { dispatchLogin } from "../../../redux/actions/authAction";
@@ -7,15 +7,13 @@ import { useDispatch } from "react-redux";
 import { GoogleLogin } from "react-google-login";
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
 
-import { Drawer, Form, Button, Col, Row, Input, Select, DatePicker, Space } from 'antd';
-import { GoogleOutlined, FacebookOutlined, MailOutlined, PlusOutlined, EyeInvisibleOutlined, EyeTwoTone, LockOutlined } from '@ant-design/icons';
+import { Drawer, Form, Button, Input } from 'antd';
+import { GoogleOutlined, FacebookOutlined, MailOutlined, EyeInvisibleOutlined, EyeTwoTone, LockOutlined } from '@ant-design/icons';
 
 import RegisterDrawer from "./RegisterDrawer";
 import ForgotPasswordDrawer from "./ForgotPasswordDrawer";
 import Lottie from 'react-lottie';
 import welcomeLottie from '../../utils/lottie/welcome.json';
-import registerLottie from '../../utils/lottie/register.json';
-import forgotpasswordLottie from '../../utils/lottie/forgotPassword.json';
 import loginLottie from '../../utils/lottie/login.json';
 
 const initialState = {

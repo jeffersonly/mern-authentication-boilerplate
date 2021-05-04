@@ -1,5 +1,6 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
+import LandingPage from "./landing/LandingPage";
 import Login from "./auth/LoginPage";
 import AccountActivation from "./auth/AccountActivationPage";
 import ResetPassword from "./auth/ResetPasswordPage";
@@ -15,6 +16,7 @@ function Body() {
     return (
         <section>
             <Switch>
+                <Route path="/" component={LandingPage} exact />
                 <Route path="/login" component={isLogged ? NotFoundPage : Login} exact />
                 <Route path="/user/reset/:token" component={isLogged ? NotFoundPage : ResetPassword} exact />
                 <Route path="/user/activate/:activation_token" component={AccountActivation} exact />

@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { showErrMsg, showSuccessMsg} from "../../utils/notification/Notification";
 import { isLength, isMatch } from "../../utils/validation/Validation";
 import { Form, Button, Input } from 'antd';
-import { MailOutlined, EyeInvisibleOutlined, EyeTwoTone, LockOutlined, UserOutlined } from '@ant-design/icons';
+import { EyeInvisibleOutlined, EyeTwoTone, LockOutlined } from '@ant-design/icons';
 
 const initialState = {
     password: "",
