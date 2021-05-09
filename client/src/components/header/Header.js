@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import defaultImage from "../utils/default-user-image.png";
 import useWindowDimensions from "../utils/window-dimensions/windowDimensions";
-
 import { Menu, Button, Drawer } from 'antd';
 import { HomeOutlined, UserOutlined, LoginOutlined, LogoutOutlined, MenuOutlined } from '@ant-design/icons';
 

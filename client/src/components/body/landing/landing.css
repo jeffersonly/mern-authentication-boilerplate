@@ -1,0 +1,122 @@
+.landing-page-text {
+    font-size: 2em;
+    color: #1890ff;
+    text-shadow: 0 0 10px white;
+    text-align: center;
+}
+
+.landing-page-text-alt {
+    font-size: 2em;
+    color: white;
+    text-shadow: 0 0 10px #1890ff;
+    text-align: center;
+}
+
+.landing-page-text-alt:last-child {
+    font-size: 1.25em;
+}
+
+.landing-page-text-container {
+    text-align: center; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+.landing-page-row {
+    height: 100vh;
+    width: 100%;
+    overflow-x: hidden;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-y: hidden;
+    padding: 10px;
+}
+
+.landing-page-row:nth-child(2) {
+    background: #1890ff;
+}
+
+.landing-page-row:nth-child(3) {
+    background: #ffffff;
+}
+
+.landing-page-row:nth-child(4) {
+    background: #1890ff;
+}
+
+/* Icon section */
+.landing-page-row .icon-items {
+    display: block;
+    text-align: center;
+    line-height: 40px;
+    padding: 20px;
+}
+
+.landing-page-row .icon-items img {
+    width: 100%;
+    max-width: 160px;
+    max-height: 160px;
+    min-height: 160px;
+    height: 100%;
+}
+
+.landing-page-row .icon-text {
+    font-size: 1em;
+    text-align: center;
+    color: #ffffff;
+    text-shadow: 0px 0px 8px #1890ff;
+}
+
+.landing-page-text-container ul li {
+    color: white;
+    text-shadow: 0px 0px 8px #1890ff;
+    font-size: 1.25em;
+}
+
+/* media queries for responsiveness */
+@media screen and (max-width:768px) {
+    /* 1 */ 
+    .custom-shape-divider-top-1620437899 svg { 
+        width: calc(158% + 1.3px);
+        height: 20px; 
+    }
+
+    /* 2 */ 
+    .custom-shape-divider-bottom-1620438589 svg { 
+        width: calc(100% + 1.3px);
+        height: 39px; 
+    } 
+
+    /* 3 */ 
+    .custom-shape-divider-top-1620439157 svg { 
+        width: calc(154% + 1.3px);
+        height: 0px;
+    }
+
+    .landing-page-row .icon-items img {
+        width: 100%;
+        min-height: 60px;
+        height: 100%;
+        min-height: 120px;
+    }
+
+    .landing-page-row {
+        height: fit-content;
+    }
+
+    .landing-page-row:nth-child(1) {
+        height: 70vh;
+    }
+
+    .landing-page-row:nth-child(2) {
+        height: 80vh;
+    }
+
+    .landing-page-text-alt:last-child {
+        padding-top: 40px;
+    }
+}
