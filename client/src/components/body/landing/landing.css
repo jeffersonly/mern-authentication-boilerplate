@@ -1,12 +1,21 @@
 .landing-page-text {
-    font-size: 2em;
+    font-size: 3em;
     color: #1890ff;
     text-shadow: 0 0 10px white;
     text-align: center;
 }
 
+.landing-page-subtext {
+    font-size: 1.25em;
+    color: #1890ff;
+    text-shadow: 0 0 10px white;
+    text-align: left;
+    padding-left: 10%;
+    padding-right: 10%;
+}
+
 .landing-page-text-alt {
-    font-size: 2em;
+    font-size: 3em;
     color: white;
     text-shadow: 0 0 10px #1890ff;
     text-align: center;
@@ -22,6 +31,7 @@
     justify-content: center;
     align-items: center;
     z-index: 10;
+    padding: 10px;
 }
 
 .landing-page-row {
@@ -42,6 +52,7 @@
 
 .landing-page-row:nth-child(3) {
     background: #ffffff;
+    height: fit-content;
 }
 
 .landing-page-row:nth-child(4) {
@@ -68,7 +79,7 @@
     font-size: 1em;
     text-align: center;
     color: #ffffff;
-    text-shadow: 0px 0px 8px #1890ff;
+    text-shadow: 0px 0px 12px #1890ff;
 }
 
 .landing-page-text-container ul li {
@@ -99,24 +110,37 @@
 
     .landing-page-row .icon-items img {
         width: 100%;
-        min-height: 60px;
         height: 100%;
-        min-height: 120px;
+        min-height: 100px;
+        max-height: 100px;
+        max-width: 100px;
     }
 
     .landing-page-row {
+        height: 100vh;
+    }
+
+    .landing-page-row:nth-child(3) {
         height: fit-content;
-    }
-
-    .landing-page-row:nth-child(1) {
-        height: 70vh;
-    }
-
-    .landing-page-row:nth-child(2) {
-        height: 80vh;
     }
 
     .landing-page-text-alt:last-child {
         padding-top: 40px;
+    }
+
+    .landing-page-text {
+        font-size: 2.5em;
+    }
+    
+    .landing-page-subtext {
+        font-size: 1em;
+    }
+    
+    .landing-page-text-alt {
+        font-size: 2.5em;
+    }
+
+    .landing-page-text-container ul li { 
+        font-size: 1em;
     }
 }

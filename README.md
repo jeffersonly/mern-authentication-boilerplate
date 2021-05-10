@@ -20,7 +20,7 @@
 ## Dependencies
 - antd: React UI library for components
 - axios: Used to make http requests to external resources, retrieve data from external APIs
-- gsap:
+- gsap: Used for scrolling animations
 - react-facebook-login: Used for oAuth login with facebook
 - react-google-login: Used for oAuth login with google
 - react-lottie: Used for lottie animations (animated gifs, images, animations)
@@ -28,7 +28,6 @@
 - react-router-dom: Used to handle routing for different pages
 - react-toastify: Used for success and error notifications
 - redux: Predictable state container, mainly used as a state management tool
-- scrollmagic:
 ## Dev Dependencies
 
 
