@@ -3,6 +3,8 @@ import { useParams, useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { showSuccessMsg, showErrMsg } from "../../utils/notification/Notification";
+import { Button } from 'antd';
+import { ArrowLeftOutlined } from '@ant-design/icons';
 
 function EditUser() {
     const { id } = useParams();
@@ -56,7 +58,7 @@ function EditUser() {
         <div className="profile_page edit_user">
             <div className="row">
                 <button onClick={() => history.goBack()} className="go_back">
-                    <i className="fas fa-long-arrow-alt-left">Go Back</i>
+                    <ArrowLeftOutlined /> Back
                 </button>
             </div>
 
@@ -92,8 +94,13 @@ function EditUser() {
                     />
                     <label htmlFor="isAdmin">Is Admin</label>
                 </div>
-
-                <button onClick={handleUpdate}>Update</button>
+                
+                <Button 
+                    type="primary"
+                    onClick={handleUpdate}
+                >
+                    Update
+                </Button>
 
                 {err && showErrMsg(err)}
                 {success && showSuccessMsg(success)}

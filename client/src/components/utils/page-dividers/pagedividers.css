@@ -1,0 +1,67 @@
+/* Wave Page Divider */ 
+
+/* 1 */
+.custom-shape-divider-top-1620437899 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+}
+
+.custom-shape-divider-top-1620437899 svg {
+    position: relative;
+    display: block;
+    width: calc(158% + 1.3px);
+    height: 820px;
+}
+
+.custom-shape-divider-top-1620437899 .shape-fill {
+    fill: #FFFFFF;
+}
+
+
+/* 2 */
+.custom-shape-divider-bottom-1620438589 {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+}
+
+.custom-shape-divider-bottom-1620438589 svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 39px;
+}
+
+.custom-shape-divider-bottom-1620438589 .shape-fill {
+    fill: #FFFFFF;
+}
+
+
+/* 3 */
+.custom-shape-divider-top-1620439157 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    transform: rotate(180deg);
+}
+
+.custom-shape-divider-top-1620439157 svg {
+    position: relative;
+    display: block;
+    width: calc(154% + 1.3px);
+    height: 140px;
+}
+
+.custom-shape-divider-top-1620439157 .shape-fill {
+    fill: #FFFFFF;
+}

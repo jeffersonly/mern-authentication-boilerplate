@@ -3,6 +3,8 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import { showErrMsg, showSuccessMsg} from "../../utils/notification/Notification";
 import { isLength, isMatch } from "../../utils/validation/Validation";
+import { Form, Button, Input } from 'antd';
+import { EyeInvisibleOutlined, EyeTwoTone, LockOutlined } from '@ant-design/icons';
 
 const initialState = {
     password: "",
@@ -42,36 +44,57 @@ function ResetPassword() {
         }
     };
 
+    const onFinishFailed = e => {
+        console.log("Form failed: ", e);
+    }
+
     return (
-        <div className="forgot_password">
+        <div className="reset-password-page">
             <h2>Reset your Password</h2>
+            {err && showErrMsg(err)}
+            {success && showSuccessMsg(success)}
 
-            <div className="row">
-                {err && showErrMsg(err)}
-                {success && showSuccessMsg(success)}
-
-                <label htmlFor="password">Enter new password</label>
-                <input
-                    type="password"
+            <Form layout="vertical" onFinish={handleResetPassword} onFinishFailed={onFinishFailed} hideRequiredMark> 
+                <Form.Item
                     name="password"
-                    id="password"
-                    value={password}
-                    onChange={handleChangeInput}
-                />
+                    label="Password"
+                    rules={[{ required: true, message: 'Enter new Password' }]}
+                >
+                    <Input.Password
+                        type="password"
+                        prefix={<LockOutlined className="site-form-item-icon" />} 
+                        placeholder="Enter new Password" 
+                        id="password" 
+                        value={password} 
+                        name="password" 
+                        onChange={handleChangeInput}
+                        iconRender={visible => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
+                    />
+                </Form.Item>
 
-                <label htmlFor="confirm_password">Confirm new password</label>
-                <input
-                    type="password"
+                <Form.Item
                     name="confirm_password"
-                    id="confirm_password"
-                    value={confirm_password}
-                    onChange={handleChangeInput}
-                />
+                    label="Confirm Password"
+                    rules={[{ required: true, message: 'Confirm new Password' }]}
+                >
+                    <Input.Password
+                        type="password"
+                        prefix={<LockOutlined className="site-form-item-icon" />} 
+                        placeholder="Confirm new Password" 
+                        id="confirm_password" 
+                        value={confirm_password} 
+                        name="confirm_password" 
+                        onChange={handleChangeInput}
+                        iconRender={visible => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
+                    />
+                </Form.Item>
 
-                <button onClick={handleResetPassword}>
-                    Reset Password
-                </button>
-            </div>
+                <Form.Item>
+                    <Button type="primary" htmlType="submit" className="login-form-button">
+                        Reset Password
+                    </Button>
+                </Form.Item> 
+            </Form>
         </div>
     );
 };

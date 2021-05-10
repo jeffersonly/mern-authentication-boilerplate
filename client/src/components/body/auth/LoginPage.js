@@ -1,11 +1,20 @@
 import React, { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import axios from "axios";
 import { showErrMsg, showSuccessMsg } from "../../utils/notification/Notification";
 import { dispatchLogin } from "../../../redux/actions/authAction";
 import { useDispatch } from "react-redux";
 import { GoogleLogin } from "react-google-login";
-import FacebookLogin from "react-facebook-login";
+import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
+
+import { Drawer, Form, Button, Input } from 'antd';
+import { GoogleOutlined, FacebookOutlined, MailOutlined, EyeInvisibleOutlined, EyeTwoTone, LockOutlined } from '@ant-design/icons';
+
+import RegisterDrawer from "./RegisterDrawer";
+import ForgotPasswordDrawer from "./ForgotPasswordDrawer";
+import Lottie from 'react-lottie';
+import welcomeLottie from '../../utils/lottie/welcome.json';
+import loginLottie from '../../utils/lottie/login.json';
 
 const initialState = {
     email: "",
@@ -27,7 +36,6 @@ function Login() {
     }
 
     const handleSubmit = async e => {
-        e.preventDefault();
         try {
             const res = await axios.post("/user/login", { email, password });
             setUser({ ...user, err: "", success: res.data.msg });
@@ -36,7 +44,6 @@ function Login() {
 
             dispatch(dispatchLogin());
             history.push("/");
-            
         } catch(err) {
             err.response.data.msg 
             && 
@@ -73,58 +80,168 @@ function Login() {
         }
     }
 
+    const [visible, setVisible] = useState(false);
+    const [childDrawer, setChildDrawer] = useState(false);
+    const [childDrawerName, setChildDrawerName] = useState("");
+
+    // show login drawer
+    const showDrawer = () => {
+        setVisible(true);
+    };
+
+    // close login drawer
+    const onClose = () => {
+        setVisible(false);
+        setUser({ ...user, err: "", success: "" });
+    };
+
+    // open child drawer
+    const showChildDrawer = () => {
+        setChildDrawer(true);
+    };
+
+    const showRegisterChildDrawer = () => {
+        setChildDrawerName("register");
+        showChildDrawer();
+    }
+
+    const showForgotPasswordChildDrawer = () => {
+        setChildDrawerName("forgotpassword");
+        showChildDrawer();
+    }
+
+    // close child drawer
+    const onChildClose = () => {
+        setChildDrawer(false);
+    };
+
+    const onFinishFailed = e => {
+        console.log("Form failed: ", e);
+    }
+
     return (
         <div className="login_page">
-            <h2>Login</h2>
             {err && showErrMsg(err)}
             {success && showSuccessMsg(success)}
 
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="email">Email Address</label>
-                    <input 
-                        type="text" 
-                        placeholder="Enter Email Address" 
-                        id="email" 
-                        value={email} 
-                        name="email" 
-                        onChange={handleChangeInput}
-                    />
-                </div>
+            <Drawer
+                title="Login"
+                width={300}
+                onClose={onClose}
+                visible={visible}
+                footer={
+                    <div className="drawer-footer">
+                        <Button onClick={showRegisterChildDrawer} className="drawer-footer-btn">
+                            Register
+                        </Button>
+                        <Button onClick={showForgotPasswordChildDrawer} className="drawer-footer-btn">
+                            Forgot Password
+                        </Button>
+                    </div>
+                }
+            >
+                <Form layout="vertical" onFinish={handleSubmit} onFinishFailed={onFinishFailed} hideRequiredMark> 
+                    <Form.Item
+                        name="email"
+                        label="Email"
+                        rules={[{ required: true, message: 'Enter Email' }]}
+                    >
+                        <Input 
+                            type="email"
+                            prefix={<MailOutlined className="site-form-item-icon" />}
+                            placeholder="Enter Email" 
+                            id="email"
+                            value={email}
+                            name="email"
+                            onChange={handleChangeInput}
+                        />
+                    </Form.Item>
 
-                <div>
-                    <label htmlFor="password">Password</label>
-                    <input 
-                        type="password" 
-                        placeholder="Enter Password" 
-                        id="password" 
-                        value={password} 
-                        name="password" 
-                        onChange={handleChangeInput}
-                    />
-                </div>
+                    <Form.Item
+                        name="password"
+                        label="Password"
+                        rules={[{ required: true, message: 'Enter Password' }]}
+                    >
+                        <Input.Password
+                            type="password"
+                            prefix={<LockOutlined className="site-form-item-icon" />} 
+                            placeholder="Enter Password" 
+                            id="password" 
+                            value={password} 
+                            name="password" 
+                            onChange={handleChangeInput}
+                            iconRender={visible => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
+                        />
+                    </Form.Item>
 
-                <div className="row">
-                    <button type="submit">Login</button>
-                </div>
-            </form>
+                    <Form.Item>
+                        <Button type="primary" htmlType="submit" className="login-form-button">
+                            Log In
+                        </Button>
+                    </Form.Item> 
+                </Form>
 
-            <div className="row">
-                <div className="right-align">
-                    <Link to="/forgot_password">Forgot your password?</Link>
-                    <p>Don't have an account yet? <Link to="/register">Register</Link></p>
-                </div>
-            </div>
-            
-            <div className="hr">Or Login With</div>
+                <Lottie 
+                    options={{
+                        loop: true,
+                        autoplay: true,
+                        animationData: loginLottie,
+                        rendererSettings: {
+                            preserveAspectRatio: "xMidYMid slice"
+                        }
+                    }}
+                    height={"auto"}
+                    width={"250px"}
+                />
+
+                <Drawer
+                    title={childDrawerName === "register" ? "Register":"Forgot Password"}
+                    width={300}
+                    onClose={onChildClose}
+                    visible={childDrawer}
+                >
+                    { childDrawerName === "register" ? <RegisterDrawer /> : <ForgotPasswordDrawer /> }
+                </Drawer>
+            </Drawer>
+
 
             <div className="social">
+                <Lottie 
+                    options={{
+                        loop: true,
+                        autoplay: true,
+                        animationData: welcomeLottie,
+                        rendererSettings: {
+                            preserveAspectRatio: "xMidYMid slice"
+                        }
+                    }}
+                    height={"100%"}
+                    width={"100%"}
+                />
+
+                <button
+                    id="email-auth-button"
+                    onClick={showDrawer} 
+                >
+                    <MailOutlined className="oauth-icon" />Login By Email
+                </button>
+
                 <GoogleLogin
                     clientId="693817205628-jll174s704jdomb5d7lng2b0963cplci.apps.googleusercontent.com"
+                    render={renderProps => (
+                        <button 
+                            onClick={renderProps.onClick} 
+                            disabled={renderProps.disabled}
+                            id="google-oauth-button"
+                        >
+                            <GoogleOutlined className="oauth-icon" />Login with Google
+                        </button>
+                    )}
                     buttonText="Login"
                     onSuccess={responseGoogle}
                     onFailure={responseGoogle}
                     cookiePolicy={"single_host_origin"}
+                    
                 />
 
                 <FacebookLogin
@@ -132,6 +249,14 @@ function Login() {
                     autoLoad={false}
                     fields="name,email,picture"
                     callback={responseFacebook} 
+                    render={renderProps => (
+                        <button 
+                            onClick={renderProps.onClick}
+                            id="facebook-oauth-button"
+                        >
+                            <FacebookOutlined className="oauth-icon" />Login with Facebook
+                        </button>
+                    )}
                 />
             </div>
         </div>

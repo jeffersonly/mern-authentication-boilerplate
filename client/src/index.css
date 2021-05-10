@@ -15,7 +15,6 @@ code {
 }
 
 .App {
-  max-width: 1400px;
   width: 100%;
   min-height: 100vh;
   box-shadow: 0 0 20px #eee;
@@ -46,3 +45,12 @@ button {
 
 /** Profile **/
 @import url("./components/body/profile/profile.css");
+
+/** antd **/
+@import '~antd/dist/antd.css';
+
+/** landing page **/
+@import url("./components/body/landing/landing.css");
+
+/** page dividers **/
+@import url("./components/utils/page-dividers/pagedividers.css");

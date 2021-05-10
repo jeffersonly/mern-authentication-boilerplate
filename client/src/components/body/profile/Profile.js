@@ -6,6 +6,8 @@ import { isLength, isMatch } from "../../utils/validation/Validation";
 import { showErrMsg, showSuccessMsg } from "../../utils/notification/Notification";
 import { fetchAllUsers, dispatchGetAllUsers } from "../../../redux/actions/usersAction";
 import defaultUserImage from "../../utils/default-user-image.png";
+import { Button, Table, Tag, Space } from 'antd';
+import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 
 const initialState = {
     name: "",
@@ -26,7 +28,7 @@ function Profile() {
     const [loading, setLoading] = useState(false);
     const [callback, setCallback] = useState(false);
 
-    const { name, email, password, confirm_password, err, success } = data;
+    const { name, password, confirm_password, err, success } = data;
 
     const dispatch = useDispatch();
 
@@ -119,6 +121,7 @@ function Profile() {
 
     // handle user information update
     const handleUpdate = () => {
+        setLoading(true);
         if(name || avatar) {
             updateInfo();
         }
@@ -126,6 +129,7 @@ function Profile() {
         if(password) {
             updatePassword();
         }
+        setLoading(false);
     };
 
     // handle user account deletion
@@ -155,13 +159,79 @@ function Profile() {
         }
     };
 
+    // specify columns for admin table
+    const columns = [
+        {
+            title: 'ID',
+            dataIndex: 'id',
+            key: 'id',
+            render: text => <Link to={`/edit_user/${user._id}`}> {text} </Link>
+        },
+        {
+            title: 'Name',
+            dataIndex: 'name',
+            key: 'name',
+        },
+        {
+            title: 'Email',
+            dataIndex: 'email',
+            key: 'email',
+        },
+        {
+            title: 'Role',
+            dataIndex: 'role',
+            key: 'role',
+            render: (role) => (
+                <Space size="middle">
+                    <span>
+                        <Tag color={role === 1 ? "green" : "volcano"} key={role === 1 ? "Administrator" : "User"}>
+                            {role === 1 ? "Administrator" : "User"}
+                        </Tag>
+                    </span>
+                </Space>   
+            )
+        },
+        {
+            title: 'Actions',
+            dataIndex: 'action_user_id',
+            key: 'action',
+            render: (action_user_id) => (
+                <Space size="middle">
+                    <Link to={`/edit_user/${action_user_id}`}>
+                        <EditOutlined title="Edit User" className="profile edit-user-icon" />
+                    </Link>
+
+                    <DeleteOutlined title="Delete User" onClick={() => handleDelete(action_user_id)} className="profile delete-user-icon" />
+                </Space>
+            ),
+        },
+    ];
+
+    // generate data for the admin table
+    function generateData() {
+        var dataArray = [];
+        for(var i = 0; i < users.length; i++) {
+            let objectItem = users[i];
+            let newObject = {
+                key: objectItem._id,
+                id: objectItem._id,
+                name: objectItem.name,
+                email: objectItem.email,
+                role: objectItem.role,
+                action_user_id: objectItem._id
+            };
+            dataArray.push(newObject);
+        }
+        return dataArray;
+    };
+
+    const tableData = generateData();
+
     return (
         <>
-            <div>
-                {err && showErrMsg(err)}
-                {success && showSuccessMsg(success)}
-                {loading && <h3>Loading...</h3>}
-            </div>
+            {err && showErrMsg(err)}
+            {success && showSuccessMsg(success)}
+
             <div className="profile_page">
                 <div className="col-left">
                     <h2>{isAdmin ? "Admin Profile" : "User Profile"}</h2>
@@ -231,9 +301,23 @@ function Profile() {
                         )
                     }
 
-                    <button disabled={loading} onClick={handleUpdate}>Update Profile</button>
-                    <br />
-                    <button disabled={loading} onClick={() => handleDelete(user._id)}>Delete Account</button>
+                        <Button 
+                            type="primary" 
+                            disabled={loading} 
+                            loading={loading} 
+                            onClick={handleUpdate}
+                        >
+                            Update Profile
+                        </Button>
+                        <Button 
+                            type="primary"
+                            disabled={loading}
+                            loading={loading} 
+                            danger={true}
+                            onClick={() => handleDelete(user._id)}
+                        >
+                            Delete Account
+                        </Button>
                 </div>
 
                 {
@@ -242,48 +326,14 @@ function Profile() {
                         <>
                             <div className="col-right">
                                 <h2>Users</h2>
-
-                                <div style={{ overflowX: "auto" }}>
-                                    <table className="users">
-                                        <thead>
-                                            <tr>
-                                                <th>ID</th>
-                                                <th>Name</th>
-                                                <th>Email</th>
-                                                <th>Admin</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-
-                                        <tbody>
-                                            {
-                                                users.map(user => (
-                                                    <tr key={user._id}>
-                                                        <td>{user._id}</td>
-                                                        <td>{user.name}</td>
-                                                        <td>{user.email}</td>
-                                                        <td>
-                                                            {
-                                                                user.role === 1 ?
-                                                                <i className="fas fa-check" title="Admin"></i>
-                                                                :
-                                                                <i className="fas fa-times" title="User"></i>
-                                                            }
-                                                        </td>
-                                                        <td>
-                                                            <Link to={`/edit_user/${user._id}`}>
-                                                                <i className="fas fa-edit" title="Edit"></i>
-                                                            </Link>
-
-                                                            <i className="fas fa-trash-alt" title="Remove" onClick={() => handleDelete(user._id)}></i>
-                                                        </td>
-                                                    </tr>
-                                                ))
-                                            }
-                                            
-                                        </tbody>
-                                    </table>
-                                </div>
+                                
+                                <Table
+                                    columns={columns}
+                                    pagination={{ position: ['none', 'bottomRight'] }}
+                                    dataSource={tableData}
+                                    scroll={{ x: 800 }}
+                                    sticky
+                                />
                             </div>
                         </>
                     )
