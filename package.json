@@ -1,0 +1,42 @@
+{
+  "name": "mern-authentication-boilerplate",
+  "version": "1.0.0",
+  "description": "Auth Boilerplate",
+  "main": "server.js",
+  "scripts": {
+    "start": "cd server && node server.js",
+    "server": "cd server && nodemon server.js",
+    "client": "cd client && npm run start",
+    "server-install": "cd server && npm install",
+    "client-install": "cd client && npm install",
+    "install-all": "concurrently \"npm run server-install\"  \"npm run client-install\"",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=FALSE cd client && npm install && npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jeffersonly/mern-authentication-boilerplate.git"
+  },
+  "author": "Jefferson Ly",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jeffersonly/mern-authentication-boilerplate/issues"
+  },
+  "homepage": "https://github.com/jeffersonly/mern-authentication-boilerplate#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cloudinary": "^1.25.1",
+    "concurrently": "^6.1.0",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "dotenv": "^9.0.2",
+    "express": "^4.17.1",
+    "express-fileupload": "^1.2.1",
+    "googleapis": "^73.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.12.8",
+    "node-fetch": "^2.6.1",
+    "nodemailer": "^6.6.0",
+    "nodemon": "^2.0.7"
+  }
+}

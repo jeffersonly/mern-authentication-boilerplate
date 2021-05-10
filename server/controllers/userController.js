@@ -267,8 +267,6 @@ const userController = {
 
             const URL = `https://graph.facebook.com/v2.9/${userID}/?fields=id,name,email,picture&access_token=${accessToken}`;
 
-            const verify = await client.verifyIdToken({ idToken: tokenId, audience: process.env.MAILING_SERVICE_CLIENT_ID });
-
             const data = await fetch(URL).then(res => res.json()).then(res => { return res });
             
             const { email, name, picture } = data;
@@ -307,8 +305,6 @@ const userController = {
 
                 res.json({ msg: "Logged In"});
             }
-            
-
         } catch(err) {
             return res.status(500).json({ msg: err.message });
         }
